@@ -318,64 +318,14 @@ public class ServiceCentre {
 
     break;
 
-                case 10:
+                                case 10:
 
-    System.out.println();
-    System.out.println("=== Sorting Experiment ===");
+                    System.out.println();
+                    System.out.println("=== Part C Sorting Experiment ===");
 
-    int[] testData = createTestArray(100);
+                    SortExperiment.runPartCExperiment();
 
-    int[] selectionData = testData.clone();
-    int[] insertionData = testData.clone();
-    int[] mergeData = testData.clone();
-    int[] quickData = testData.clone();
-
-    long startTime;
-    long endTime;
-
-    // Selection Sort
-    startTime = System.nanoTime();
-
-    SelectionSort.sort(selectionData);
-
-    endTime = System.nanoTime();
-
-    long selectionTime = endTime - startTime;
-
-    // Insertion Sort
-    startTime = System.nanoTime();
-
-    InsertionSort.sort(insertionData);
-
-    endTime = System.nanoTime();
-
-    long insertionTime = endTime - startTime;
-
-    // Merge Sort
-    startTime = System.nanoTime();
-
-    MergeSort.mergeSort(mergeData, 0, mergeData.length - 1);
-
-    endTime = System.nanoTime();
-
-    long mergeTime = endTime - startTime;
-
-    // Quick Sort
-    startTime = System.nanoTime();
-
-    QuickSort.sort(quickData);
-
-    endTime = System.nanoTime();
-
-    long quickTime = endTime - startTime;
-
-    System.out.println("Array size: 100");
-    System.out.println("Selection Sort time: " + selectionTime + " nanoseconds");
-    System.out.println("Insertion Sort time: " + insertionTime + " nanoseconds");
-    System.out.println("Merge Sort time: " + mergeTime + " nanoseconds");
-    System.out.println("Quick Sort time: " + quickTime + " nanoseconds");
-
-    break;
+                    break;
 
                 case 11:
                     System.out.println("Exiting system...");
@@ -389,17 +339,5 @@ public class ServiceCentre {
 
         scanner.close();
     }
-
-    public static int[] createTestArray(int size) {
-
-    int[] array = new int[size];
-
-    for (int i = 0; i < size; i++) {
-
-        array[i] = size - i;
-    }
-
-    return array;
-}
 
 }
