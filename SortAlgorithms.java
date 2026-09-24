@@ -1,9 +1,5 @@
 public class SortAlgorithms {
 
-    /**
-     * Mutable counter used to count only comparisons between data values.
-     * Loop-index and boundary checks (e.g. j >= 0, i <= mid) are NOT counted.
-     */
     public static final class Counter {
         public long comparisons = 0;
     }
@@ -13,7 +9,7 @@ public class SortAlgorithms {
         for (int i = 0; i < n - 1; i++) {
             int minIdx = i;
             for (int j = i + 1; j < n; j++) {
-                c.comparisons++;                    // data comparison
+                c.comparisons++;                    
                 if (arr[j] < arr[minIdx]) {
                     minIdx = j;
                 }
@@ -30,7 +26,7 @@ public class SortAlgorithms {
             int key = arr[i];
             int j = i - 1;
             while (j >= 0) {
-                c.comparisons++;                    // data comparison
+                c.comparisons++;                    
                 if (arr[j] > key) {
                     arr[j + 1] = arr[j];
                     j--;
@@ -65,7 +61,7 @@ public class SortAlgorithms {
         }
         int i = low, j = mid + 1, k = low;
         while (i <= mid && j <= high) {
-            c.comparisons++;                        // data comparison
+            c.comparisons++;                        
             if (temp[i] <= temp[j]) {
                 arr[k++] = temp[i++];
             } else {
@@ -96,7 +92,7 @@ public class SortAlgorithms {
         int pivot = arr[high];
         int i = low - 1;
         for (int j = low; j < high; j++) {
-            c.comparisons++;                        // data comparison
+            c.comparisons++;                        
             if (arr[j] < pivot) {
                 i++;
                 swap(arr, i, j);

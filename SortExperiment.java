@@ -18,77 +18,130 @@ public class SortExperiment {
     }
 
     public static void main(String[] args) {
+
         NamedSort[] sorts = {
             new NamedSort("Selection Sort", SortAlgorithms::selectionSort),
             new NamedSort("Insertion Sort", SortAlgorithms::insertionSort),
             new NamedSort("Merge Sort",     SortAlgorithms::mergeSort),
-            new NamedSort("Quick Sort",     SortAlgorithms::quickSort),
+            new NamedSort("Quick Sort",     SortAlgorithms::quickSort)
         };
 
         Random rng = new Random(42);
+
         int[] sizes = {20, 50, 100, 500};
 
-        System.out.println("PART C - ALGORITHM EXPERIMENT (random arrays)");
-        System.out.println("===============================================");
+        System.out.println("PART C - ALGORITHM EXPERIMENT");
+        System.out.println("==============================");
         printHeader();
 
         int[] original100 = null;
+
         for (int size : sizes) {
+
             int[] original = randomArray(rng, size);
+
             if (size == 100) {
-                original100 = original;
+                original100 = Arrays.copyOf(original, original.length);
             }
+
             runExperiment(sorts, original);
         }
 
         System.out.println();
-        System.out.println("ADDITIONAL TEST - ALMOST-SORTED 100-element array");
+        System.out.println("ADDITIONAL TEST - ALMOST-SORTED 100-ELEMENT ARRAY");
         System.out.println("==================================================");
         printHeader();
-        runExperiment(sorts, almostSortedArray(original100));
+
+        int[] almostSorted = createAlmostSortedArray(original100);
+
+        runExperiment(sorts, almostSorted);
     }
 
     private static int[] randomArray(Random rng, int size) {
+
         int[] arr = new int[size];
+
         for (int i = 0; i < size; i++) {
             arr[i] = rng.nextInt(1_000_000);
         }
+
         return arr;
     }
 
-    private static int[] almostSortedArray(int[] base) {
+    private static int[] createAlmostSortedArray(int[] base) {
+
+
         int[] arr = Arrays.copyOf(base, base.length);
+
         Arrays.sort(arr);
-        int[][] pairs = {{0, 1}, {2, 3}, {4, 5}, {6, 7}, {8, 9}};
-        for (int[] p : pairs) {
-            int tmp = arr[p[0]];
-            arr[p[0]] = arr[p[1]];
-            arr[p[1]] = tmp;
+
+        int[][] pairs = {
+            {0, 1},
+            {2, 3},
+            {4, 5},
+            {6, 7},
+            {8, 9}
+        };
+
+
+        for (int[] pair : pairs) {
+
+            int temp = arr[pair[0]];
+            arr[pair[0]] = arr[pair[1]];
+            arr[pair[1]] = temp;
         }
+
         return arr;
     }
 
-    private static void runExperiment(NamedSort[] sorts, int[] original) {
-        for (NamedSort s : sorts) {
-            printRow(s, original);
+    private static void runExperiment(
+            NamedSort[] sorts,
+            int[] original) {
+
+        for (NamedSort sort : sorts) {
+            printRow(sort, original);
         }
     }
 
-    private static void printRow(NamedSort s, int[] original) {
-        SortAlgorithms.Counter counter = new SortAlgorithms.Counter();
-        int[] copy = Arrays.copyOf(original, original.length);
+    private static void printRow(
+            NamedSort sort,
+            int[] original) {
+
+        SortAlgorithms.Counter counter =
+                new SortAlgorithms.Counter();
+
+        int[] copy =
+                Arrays.copyOf(original, original.length);
 
         long start = System.nanoTime();
-        s.fn.sort(copy, counter);
+
+        sort.fn.sort(copy, counter);
+
         long end = System.nanoTime();
 
-        System.out.printf("%-14s %-14d %14d %16d%n",
-                s.name, original.length, counter.comparisons, (end - start));
+        long executionTime = end - start;
+
+        System.out.printf(
+                "%-16s %-12d %14d %16d%n",
+                sort.name,
+                original.length,
+                counter.comparisons,
+                executionTime
+        );
     }
 
     private static void printHeader() {
-        System.out.printf("%-14s %-14s %14s %16s%n",
-                "Algorithm", "Input Size", "Comparisons", "Time (ns)");
-        System.out.println("----------------------------------------------------------------");
+
+        System.out.printf(
+                "%-16s %-12s %14s %16s%n",
+                "Algorithm",
+                "Input Size",
+                "Comparisons",
+                "Time (ns)"
+        );
+
+        System.out.println(
+                "------------------------------------------------------------"
+        );
     }
 }
