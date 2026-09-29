@@ -10,22 +10,34 @@ public class Student {
         this.name = name;
         this.serviceType = serviceType;
         this.estimatedServiceTime = estimatedServiceTime;
-    } 
+    }
 
     public String getStudentNumber() {
-    return studentNumber;
-}
+        return studentNumber;
+    }
 
-public String getName() {
-    return name;
-}
+    public String getStudentNo() {
+        return studentNumber;
+    }
 
-public String getServiceType() {
-    return serviceType;
-}
+    public String getName() {
+        return name;
+    }
 
-public int getEstimatedServiceTime() {
-    return estimatedServiceTime;
-}
+    public String getServiceType() {
+        return serviceType;
+    }
 
+    public int getEstimatedServiceTime() {
+        return estimatedServiceTime;
+    }
+
+    public int getServiceTime() {
+        return estimatedServiceTime;
+    }
+
+    public void displayStudent() {
+        System.out.printf("%-12s %-15s %-20s %-10d%n",
+                studentNumber, name, serviceType, estimatedServiceTime);
+    }
 }
